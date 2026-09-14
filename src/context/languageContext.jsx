@@ -18,18 +18,18 @@ export const translations = {
       contact: "Contato"
     },
     hero: {
-      sub: "Global Or Nothing",
-      title: "Criamos e escalamos marcas em nível [global].",
-      lead: "Construímos marcas, operações e sistemas de crescimento para empresas que não nasceram para ser médias.",
+      sub: "Multi-Channel Network",
+      title: "Estratégia e operação para marcas em movimento [global].",
+      lead: "A GOON é um ecossistema de aceleração para moda, design, beleza e cuidados pessoais. Conectamos cultura, dados e design à execução multicanal.",
       waBtn: "Falar no WhatsApp",
-      talkBtn: "Iniciar conversa",
-      methodBtn: "Conheça o método"
+      talkBtn: "Conheça a GOON",
+      methodBtn: "Como operamos"
     },
-    marquee: ["Branding", "Produto", "Operação", "Growth", "TikTok Shop", "Gestão"],
+    marquee: ["Branding", "Produto", "Operação", "Growth", "Social Commerce", "Gestão"],
     statements: {
       one: {
-        text: "Crescimento não é um departamento.",
-        span: "É um sistema."
+        text: "Canais mudam. Mercados mudam.",
+        span: "Marcas com sistema permanecem."
       },
       two: {
         text: "Não construímos empresas para o mercado local.",
@@ -50,13 +50,13 @@ export const translations = {
       p4: { title: "Gestão sem execução trava.", desc: "Planejamento só importa quando vira ritual, KPI e cobrança.", solution: "Implementamos rituais diários, semanais e mensais de checagem com heads dedicados." }
     },
     systems: {
-      title: "We build systems.",
-      lead: "A GOON conecta as partes que normalmente trabalham separadas. Marca, produto, operação, tecnologia e vendas sob uma única lógica de crescimento.",
-      s1: { title: "Marca", desc: "Posicionamento, território, narrativa e desejo." },
-      s2: { title: "Produto", desc: "Mix, coleção, precificação e produtos-âncora." },
-      s3: { title: "Operação", desc: "Supply, fornecedores, estoque, lead time e qualidade." },
-      s4: { title: "Gestão", desc: "Comitês, KPIs, papéis, rituais e plano de ação." },
-      s5: { title: "Growth", desc: "Social commerce, TikTok Shop, criadores, lives e GMV." }
+      title: "Uma marca. Todos os canais.",
+      lead: "Estratégia e operação B2B, B2C, D2C e Social Commerce sob a mesma visão — com processos para crescer de forma sustentável e consistente.",
+      s1: { title: "Posicionamento", desc: "Território de marca, narrativa, ICP e linguagem para definir um lugar próprio no mercado." },
+      s2: { title: "Direção criativa", desc: "Produto, mix e calendário conectados à identidade e ao comportamento do consumidor." },
+      s3: { title: "Supply chain", desc: "Fornecedores, qualidade e produção integrados a uma cadeia previsível e escalável." },
+      s4: { title: "Operação", desc: "Processos, rituais, indicadores e responsabilidades que transformam estratégia em rotina." },
+      s5: { title: "Distribuição", desc: "Canais B2B, B2C, D2C e Social Commerce operando com coerência e inteligência de dados." }
     },
     method: {
       title: "GOON Method",
@@ -67,32 +67,32 @@ export const translations = {
       p4: { title: "Scale", desc: "Ajustamos rota, aceleramos vendas e preparamos a empresa para crescer." }
     },
     timeline: {
-      title: "Como operamos",
-      lead: "Do diagnóstico à implementação. Sem teatro. Sem apresentação esquecida na gaveta.",
+      title: "Estratégia que entra em operação.",
+      lead: "Da leitura de contexto à execução: clareza para decidir, estrutura para operar e dados para evoluir.",
       step: "ETAPA",
-      step1: { title: "Position", desc: "Definimos o jogo: mercado, cliente, marca, diferenciação e plano de voo." },
-      step2: { title: "Build", desc: "Construímos os ativos: produto, canais, processos, narrativas e sistemas." },
-      step3: { title: "Operate", desc: "Entramos na operação com rituais, heads, KPIs e cadência executiva." },
-      step4: { title: "Scale", desc: "Ajustamos rota, aceleramos vendas e preparamos a empresa para crescer." }
+      step1: { title: "Contexto", desc: "Lemos cultura, mercado, consumidor e operação para reconhecer o que realmente move o negócio." },
+      step2: { title: "Direção", desc: "Alinhamos marca, produto, canais e prioridades em uma visão clara e compartilhada." },
+      step3: { title: "Operação", desc: "Transformamos a direção em processos, ritmo de gestão, supply chain e execução multicanal." },
+      step4: { title: "Evolução", desc: "Acompanhamos dados, refinamos decisões e ampliamos alcance com consistência." }
     },
     ecosystem: {
-      title: "Ecossistema",
-      lead: "Diferentes formas de acessar a mesma filosofia: construir empresas como sistemas.",
-      c1: { title: "GOON Consulting", desc: "Projetos executivos para empresas que precisam reposicionar, estruturar e escalar.", action: "Apply →" },
-      c2: { title: "GOON Elite", desc: "Mentoria individual para founders que querem direção estratégica e execução próxima.", action: "Apply →" },
-      c3: { title: "GOON Infinity", desc: "Programa em grupo para marcas que querem método, ritmo e comunidade.", action: "Join →" },
-      c4: { title: "GOON Advisor", desc: "Conselho estratégico para decisões críticas de crescimento, produto e operação.", action: "Request →" },
+      title: "Uma rede. Quatro frentes.",
+      lead: "Estratégia, cultura, canais e conhecimento conectados por uma mesma visão de marca e operação.",
+      c1: { title: "GOON Advisor", desc: "Inteligência estratégica para decisões de marca, posicionamento, produto e expansão.", action: "Conhecer →" },
+      c2: { title: "GOON What, Who & Where", desc: "Leitura de cultura, consumidor e mercado para orientar onde a marca deve estar e como deve se expressar.", action: "Conhecer →" },
+      c3: { title: "GOON MCN", desc: "Rede multicanal que conecta marcas, distribuição, conteúdo e parceiros estratégicos.", action: "Conhecer →" },
+      c4: { title: "GOON Mentorship", desc: "Conhecimento aplicado e troca estratégica para fortalecer lideranças e decisões de negócio.", action: "Conhecer →" },
       c5: { title: "GOON Club", desc: "Comunidade para empresários, operadores e marcas em construção.", action: "Enter →" },
       c6: { title: "GOON Events", desc: "Imersões, encontros e experiências para acelerar visão, conexão e execução.", action: "See events →" }
     },
     stats: {
-      title1: "Operadores.",
-      title2: "Não espectadores.",
-      lead: "Enquanto muitos ensinam, nós operamos. Enquanto muitos apresentam, nós implementamos. Enquanto muitos observam, nós construímos.",
-      s1: "anos construindo marcas",
+      title1: "Cultura, dados e design.",
+      title2: "Em uma só direção.",
+      lead: "Visão criativa encontra disciplina operacional para construir marcas relevantes, consistentes e preparadas para diferentes mercados.",
+      s1: "anos de experiência acumulada",
       s2: "países alcançados",
-      s3: "em faturamento histórico",
-      s4: "global or nothing"
+      s3: "em negócios construídos",
+      s4: "canais conectados"
     },
     cases: {
       title: "Cases",
@@ -111,13 +111,13 @@ export const translations = {
       c2: {
         name: "VELO",
         tag: "COMMERCE SCALE · SOCIAL COMMERCE",
-        title: "Escalonamento em massa via TikTok Shop",
+        title: "Estrutura multicanal de social commerce",
         desc: "Uma infraestrutura de social commerce integrando criadores parceiros, lives comerciais e logística de fast-fulfillment para responder a picos de demanda.",
         m1v: "$4.2M",
         m1l: "GMV em 90 dias",
         m2v: "250K+",
         m2l: "Clientes conquistados",
-        quote: "O método de social commerce e a velocidade operacional da GOON nos permitiram surfar a onda do TikTok Shop sem rupturas de estoque."
+        quote: "A visão multicanal e a disciplina operacional da GOON conectaram marca, conteúdo e distribuição sem perder consistência."
       },
       c3: {
         name: "APEX",
@@ -154,11 +154,11 @@ export const translations = {
       igTitle: "Instagram",
       igDesc: "Bastidores, cases e a filosofia de operar em vez de apenas ensinar.",
       igAction: "Seguir →",
-      finalTitle1: "Ready to build",
-      finalTitle2: "something bigger?",
-      finalDesc: "Se a sua empresa precisa de marca, produto, operação e crescimento trabalhando como um único sistema, comece por uma conversa.",
+      finalTitle1: "GOON Global Network",
+      finalTitle2: "Culture. Data. Design.",
+      finalDesc: "Uma rede construída para conectar estratégia, execução e resultados em marcas de moda, design, beleza e cuidados pessoais.",
       finalWa: "Falar no WhatsApp",
-      finalTalk: "Iniciar conversa",
+      finalTalk: "Fale com a GOON",
       waMsg: "Olá! Vim pelo site da GOON e quero conversar sobre um projeto."
     },
     footer: {
@@ -190,18 +190,18 @@ export const translations = {
       contact: "Contact"
     },
     hero: {
-      sub: "Global Or Nothing",
-      title: "We build and scale brands at a [global] level.",
-      lead: "We build brands, operations, and growth systems for companies that weren't born to be average.",
+      sub: "Multi-Channel Network",
+      title: "Strategy and operations for brands in [global] motion.",
+      lead: "GOON is an acceleration ecosystem for fashion, design, beauty, and personal care. We connect culture, data, and design to multi-channel execution.",
       waBtn: "Talk on WhatsApp",
-      talkBtn: "Start conversation",
-      methodBtn: "Discover the method"
+      talkBtn: "Discover GOON",
+      methodBtn: "How we operate"
     },
-    marquee: ["Branding", "Product", "Operations", "Growth", "TikTok Shop", "Management"],
+    marquee: ["Branding", "Product", "Operations", "Growth", "Social Commerce", "Management"],
     statements: {
       one: {
-        text: "Growth is not a department.",
-        span: "It is a system."
+        text: "Channels change. Markets change.",
+        span: "Brands with systems endure."
       },
       two: {
         text: "We don't build companies for the local market.",
@@ -222,13 +222,13 @@ export const translations = {
       p4: { title: "Management without execution stalls.", desc: "Planning only matters when it becomes a ritual, KPI, and accountability.", solution: "We implement daily, weekly, and monthly check-in rituals with dedicated heads." }
     },
     systems: {
-      title: "We build systems.",
-      lead: "GOON connects the parts that usually work in silos. Brand, product, operations, technology, and sales under a single growth logic.",
-      s1: { title: "Brand", desc: "Positioning, territory, narrative, and desire." },
-      s2: { title: "Product", desc: "Mix, collection, pricing, and anchor products." },
-      s3: { title: "Operations", desc: "Supply, vendors, inventory, lead time, and quality." },
-      s4: { title: "Management", desc: "Committees, KPIs, roles, rituals, and action plan." },
-      s5: { title: "Growth", desc: "Social commerce, TikTok Shop, creators, lives, and GMV." }
+      title: "One brand. Every channel.",
+      lead: "B2B, B2C, D2C, and Social Commerce strategy and operations under one vision — with processes built for sustainable, consistent growth.",
+      s1: { title: "Positioning", desc: "Brand territory, narrative, ICP, and language that establish a distinct place in the market." },
+      s2: { title: "Creative direction", desc: "Product, assortment, and calendar connected to identity and consumer behavior." },
+      s3: { title: "Supply chain", desc: "Suppliers, quality, and production integrated into a predictable, scalable chain." },
+      s4: { title: "Operations", desc: "Processes, rituals, metrics, and ownership that turn strategy into routine." },
+      s5: { title: "Distribution", desc: "B2B, B2C, D2C, and Social Commerce channels operating with consistency and data intelligence." }
     },
     method: {
       title: "GOON Method",
@@ -239,32 +239,32 @@ export const translations = {
       p4: { title: "Scale", desc: "We adjust the course, accelerate sales, and prepare the company to scale." }
     },
     timeline: {
-      title: "How we operate",
-      lead: "From diagnosis to implementation. No theater. No presentations left in a drawer.",
+      title: "Strategy that enters operations.",
+      lead: "From context to execution: clarity to decide, structure to operate, and data to evolve.",
       step: "STAGE",
-      step1: { title: "Position", desc: "We define the game: market, customer, brand, differentiation, and flight plan." },
-      step2: { title: "Build", desc: "We build the assets: product, channels, processes, narratives, and systems." },
-      step3: { title: "Operate", desc: "We run the operations with rituals, heads, KPIs, and executive cadence." },
-      step4: { title: "Scale", desc: "We adjust the course, accelerate sales, and prepare the company to scale." }
+      step1: { title: "Context", desc: "We read culture, market, consumer, and operations to identify what truly moves the business." },
+      step2: { title: "Direction", desc: "We align brand, product, channels, and priorities into a clear, shared vision." },
+      step3: { title: "Operations", desc: "We translate direction into processes, management rhythm, supply chain, and multi-channel execution." },
+      step4: { title: "Evolution", desc: "We track data, refine decisions, and expand reach with consistency." }
     },
     ecosystem: {
-      title: "Ecosystem",
-      lead: "Different ways to access the same philosophy: building companies as systems.",
-      c1: { title: "GOON Consulting", desc: "Executive projects for companies that need to reposition, structure, and scale.", action: "Apply →" },
-      c2: { title: "GOON Elite", desc: "Individual mentoring for founders who want strategic direction and close execution.", action: "Apply →" },
-      c3: { title: "GOON Infinity", desc: "Group program for brands that want method, rhythm, and community.", action: "Join →" },
-      c4: { title: "GOON Advisor", desc: "Strategic board for critical growth, product, and operations decisions.", action: "Request →" },
+      title: "One network. Four fronts.",
+      lead: "Strategy, culture, channels, and knowledge connected by a shared vision of brand and operations.",
+      c1: { title: "GOON Advisor", desc: "Strategic intelligence for decisions across brand, positioning, product, and expansion.", action: "Discover →" },
+      c2: { title: "GOON What, Who & Where", desc: "Culture, consumer, and market insight to guide where a brand should be and how it should express itself.", action: "Discover →" },
+      c3: { title: "GOON MCN", desc: "A multi-channel network connecting brands, distribution, content, and strategic partners.", action: "Discover →" },
+      c4: { title: "GOON Mentorship", desc: "Applied knowledge and strategic exchange that strengthen leadership and business decisions.", action: "Discover →" },
       c5: { title: "GOON Club", desc: "Community for entrepreneurs, operators, and brands in construction.", action: "Enter →" },
       c6: { title: "GOON Events", desc: "Imersions, meetups, and experiences to accelerate vision, connection, and execution.", action: "See events →" }
     },
     stats: {
-      title1: "Operators.",
-      title2: "Not spectators.",
-      lead: "While many teach, we operate. While many present, we implement. While many observe, we build.",
-      s1: "years building brands",
+      title1: "Culture, data, and design.",
+      title2: "Moving in one direction.",
+      lead: "Creative vision meets operational discipline to build relevant, consistent brands prepared for different markets.",
+      s1: "years of combined experience",
       s2: "countries reached",
-      s3: "in historical revenue",
-      s4: "global or nothing"
+      s3: "in businesses built",
+      s4: "connected channels"
     },
     cases: {
       title: "Cases",
@@ -283,13 +283,13 @@ export const translations = {
       c2: {
         name: "VELO",
         tag: "COMMERCE SCALE · SOCIAL COMMERCE",
-        title: "Mass scale scaling via TikTok Shop",
+        title: "Multi-channel social commerce structure",
         desc: "A social commerce infrastructure integrating partner creators, commercial live streams, and fast-fulfillment logistics for massive sales spikes.",
         m1v: "$4.2M",
         m1l: "GMV in 90 days",
         m2v: "250K+",
         m2l: "Customers Acquired",
-        quote: "GOON's social commerce method and operational speed allowed us to ride the TikTok Shop wave without stockouts."
+        quote: "GOON's multi-channel vision and operational discipline connected brand, content, and distribution without losing consistency."
       },
       c3: {
         name: "APEX",
@@ -326,11 +326,11 @@ export const translations = {
       igTitle: "Instagram",
       igDesc: "Behind the scenes, cases, and the philosophy of operating instead of just teaching.",
       igAction: "Follow →",
-      finalTitle1: "Ready to build",
-      finalTitle2: "something bigger?",
-      finalDesc: "If your company needs brand, product, operations, and growth working as a single system, start with a conversation.",
+      finalTitle1: "GOON Global Network",
+      finalTitle2: "Culture. Data. Design.",
+      finalDesc: "A network built to connect strategy, execution, and results across fashion, design, beauty, and personal care brands.",
       finalWa: "Talk on WhatsApp",
-      finalTalk: "Start a conversation",
+      finalTalk: "Talk to GOON",
       waMsg: "Hello! I came through the GOON website and want to discuss a project."
     },
     footer: {
@@ -362,18 +362,18 @@ export const translations = {
       contact: "Contacto"
     },
     hero: {
-      sub: "Global Or Nothing",
-      title: "Creamos y escalamos marcas a nivel [global].",
-      lead: "Construimos marcas, operaciones y sistemas de crecimiento para empresas que no nacieron para ser promedio.",
+      sub: "Multi-Channel Network",
+      title: "Estrategia y operación para marcas en movimiento [global].",
+      lead: "GOON es un ecosistema de aceleración para moda, diseño, belleza y cuidado personal. Conectamos cultura, datos y diseño con la ejecución multicanal.",
       waBtn: "Hablar por WhatsApp",
-      talkBtn: "Iniciar conversación",
-      methodBtn: "Conoce el método"
+      talkBtn: "Conoce GOON",
+      methodBtn: "Cómo operamos"
     },
-    marquee: ["Branding", "Producto", "Operaciones", "Growth", "TikTok Shop", "Gestión"],
+    marquee: ["Branding", "Producto", "Operaciones", "Growth", "Social Commerce", "Gestión"],
     statements: {
       one: {
-        text: "El crecimiento no es un departamento.",
-        span: "Es un sistema."
+        text: "Los canales cambian. Los mercados cambian.",
+        span: "Las marcas con sistema permanecen."
       },
       two: {
         text: "No construimos empresas para el mercado local.",
@@ -394,13 +394,13 @@ export const translations = {
       p4: { title: "La gestión sin execução se estanca.", desc: "La planificación solo importa cuando se convierte en ritual, KPI y exigencia.", solution: "Implementamos rituales diarios, semanales y mensuales de control con directores dedicados." }
     },
     systems: {
-      title: "We build systems.",
-      lead: "GOON conecta las partes que normalmente trabajan por separado. Marca, producto, operaciones, tecnología y ventas bajo una única lógica de crecimiento.",
-      s1: { title: "Marca", desc: "Posicionamiento, territorio, narrativa y deseo." },
-      s2: { title: "Producto", desc: "Mix, colección, fijación de precios y productos ancla." },
-      s3: { title: "Operaciones", desc: "Supply, proveedores, inventario, lead time y calidad." },
-      s4: { title: "Gestión", desc: "Comités, KPIs, roles, rituales y plan de acción." },
-      s5: { title: "Growth", desc: "Social commerce, TikTok Shop, creadores, en vivo y GMV." }
+      title: "Una marca. Todos los canales.",
+      lead: "Estrategia y operación B2B, B2C, D2C y Social Commerce bajo una misma visión, con procesos para crecer de forma sostenible y consistente.",
+      s1: { title: "Posicionamiento", desc: "Territorio de marca, narrativa, ICP y lenguaje para definir un lugar propio en el mercado." },
+      s2: { title: "Dirección creativa", desc: "Producto, mix y calendario conectados con la identidad y el comportamiento del consumidor." },
+      s3: { title: "Supply chain", desc: "Proveedores, calidad y producción integrados en una cadena predecible y escalable." },
+      s4: { title: "Operación", desc: "Procesos, rituales, indicadores y responsabilidades que convierten estrategia en rutina." },
+      s5: { title: "Distribución", desc: "Canales B2B, B2C, D2C y Social Commerce operando con coherencia e inteligencia de datos." }
     },
     method: {
       title: "GOON Method",
@@ -411,32 +411,32 @@ export const translations = {
       p4: { title: "Scale", desc: "Ajustamos rumbo, aceleramos ventas y preparamos la empresa para crecer." }
     },
     timeline: {
-      title: "Cómo operamos",
-      lead: "Del diagnóstico a la implementación. Sin teatro. Sin presentaciones olvidadas en un cajón.",
+      title: "Estrategia que entra en operación.",
+      lead: "De la lectura del contexto a la ejecución: claridad para decidir, estructura para operar y datos para evolucionar.",
       step: "ETAPA",
-      step1: { title: "Position", desc: "Definimos el juego: mercado, cliente, marca, diferenciación y plan de vuelo." },
-      step2: { title: "Build", desc: "Construimos los activos: producto, canales, procesos, narrativas y sistemas." },
-      step3: { title: "Operate", desc: "Entramos en la operación con rituales, directores, KPIs y cadencia ejecutiva." },
-      step4: { title: "Scale", desc: "Ajustamos rumbo, aceleramos ventas y preparamos la empresa para crecer." }
+      step1: { title: "Contexto", desc: "Leemos cultura, mercado, consumidor y operación para reconocer qué mueve realmente el negocio." },
+      step2: { title: "Dirección", desc: "Alineamos marca, producto, canales y prioridades en una visión clara y compartida." },
+      step3: { title: "Operación", desc: "Convertimos la dirección en procesos, ritmo de gestión, supply chain y ejecución multicanal." },
+      step4: { title: "Evolución", desc: "Seguimos los datos, refinamos decisiones y ampliamos el alcance con consistencia." }
     },
     ecosystem: {
-      title: "Ecosistema",
-      lead: "Diferentes formas de acceder a la misma filosofía: construir empresas como sistemas.",
-      c1: { title: "GOON Consulting", desc: "Proyectos ejecutivos para empresas que necesitan reposicionar, estructurar y escalar.", action: "Apply →" },
-      c2: { title: "GOON Elite", desc: "Mentoría individual para founders que buscan dirección estratégica y ejecución cercana.", action: "Apply →" },
-      c3: { title: "GOON Infinity", desc: "Programa grupal para marcas que buscan método, ritmo y comunidad.", action: "Join →" },
-      c4: { title: "GOON Advisor", desc: "Consejo estratégico para decisiones críticas de crecimiento, producto y operación.", action: "Request →" },
+      title: "Una red. Cuatro frentes.",
+      lead: "Estrategia, cultura, canales y conocimiento conectados por una misma visión de marca y operación.",
+      c1: { title: "GOON Advisor", desc: "Inteligencia estratégica para decisiones de marca, posicionamiento, producto y expansión.", action: "Conocer →" },
+      c2: { title: "GOON What, Who & Where", desc: "Lectura de cultura, consumidor y mercado para orientar dónde debe estar la marca y cómo debe expresarse.", action: "Conocer →" },
+      c3: { title: "GOON MCN", desc: "Una red multicanal que conecta marcas, distribución, contenido y socios estratégicos.", action: "Conocer →" },
+      c4: { title: "GOON Mentorship", desc: "Conocimiento aplicado e intercambio estratégico para fortalecer liderazgos y decisiones de negocio.", action: "Conocer →" },
       c5: { title: "GOON Club", desc: "Comunidad para empresarios, operadores y marcas en construcción.", action: "Enter →" },
       c6: { title: "GOON Events", desc: "Inmersiones, encuentros y experiencias para acelerar visión, conexión y ejecución.", action: "See events →" }
     },
     stats: {
-      title1: "Operadores.",
-      title2: "No espectadores.",
-      lead: "Mientras muchos enseñan, nosotros operamos. Mientras muchos presentan, nosotros implementamos. Mientras muchos observan, nosotros construimos.",
-      s1: "años construyendo marcas",
+      title1: "Cultura, datos y diseño.",
+      title2: "En una sola dirección.",
+      lead: "La visión creativa se une con la disciplina operativa para construir marcas relevantes, consistentes y preparadas para distintos mercados.",
+      s1: "años de experiencia acumulada",
       s2: "países alcanzados",
-      s3: "en facturación histórica",
-      s4: "global or nothing"
+      s3: "en negocios construidos",
+      s4: "canales conectados"
     },
     cases: {
       title: "Casos",
@@ -455,13 +455,13 @@ export const translations = {
       c2: {
         name: "VELO",
         tag: "COMMERCE SCALE · SOCIAL COMMERCE",
-        title: "Escalada masiva a través de TikTok Shop",
+        title: "Estructura multicanal de social commerce",
         desc: "Una infraestructura de social commerce que integra creadores asociados, transmisiones en vivo y logística de fast-fulfillment para picos de ventas.",
         m1v: "$4.2M",
         m1l: "GMV en 90 días",
         m2v: "250K+",
         m2l: "Clientes Adquiridos",
-        quote: "El método de social commerce y la velocidad operativa de GOON nos permitieron aprovechar la ola de TikTok Shop sin quiebres de stock."
+        quote: "La visión multicanal y la disciplina operativa de GOON conectaron marca, contenido y distribución sin perder consistencia."
       },
       c3: {
         name: "APEX",
@@ -498,11 +498,11 @@ export const translations = {
       igTitle: "Instagram",
       igDesc: "Detrás de escena, casos y la filosofía de operar en lugar de solo enseñar.",
       igAction: "Seguir →",
-      finalTitle1: "Ready to build",
-      finalTitle2: "something bigger?",
-      finalDesc: "Si tu empresa necesita marca, producto, operación y crecimiento trabajando como un único sistema, comienza con una conversación.",
+      finalTitle1: "GOON Global Network",
+      finalTitle2: "Culture. Data. Design.",
+      finalDesc: "Una red creada para conectar estrategia, ejecución y resultados en marcas de moda, diseño, belleza y cuidado personal.",
       finalWa: "Hablar por WhatsApp",
-      finalTalk: "Iniciar conversación",
+      finalTalk: "Habla con GOON",
       waMsg: "¡Hola! Vine por el sitio web de GOON e quiero conversar sobre un proyecto."
     },
     footer: {

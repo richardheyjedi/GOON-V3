@@ -1,323 +1,449 @@
-import React, { lazy, Suspense, useEffect, useRef, useState, useLayoutEffect } from 'react';
-import { gsap } from './lib/gsapConfig';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { useGSAP } from '@gsap/react';
+import { gsap, ScrollTrigger } from './lib/gsapConfig';
 import { useLanguage } from './context/languageContext';
-import CustomCursor from './components/CustomCursor';
 import Header from './components/Header';
-import Hero from './components/Hero';
-import Timeline from './components/Timeline';
-import Ecosystem from './components/Ecosystem';
-import Stats from './components/Stats';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
 import LeadModal from './components/LeadModal';
 import LogoCarousel from './components/LogoCarousel';
 
+gsap.registerPlugin(useGSAP);
+
 const AdminLeads = lazy(() => import('./components/AdminLeads'));
+
+const SYSTEM_ICONS = ['◉', '◇', '⌁', '⊹', '↗'];
+const PROCESS_META = [
+  { number: '01', code: 'CONTEXT', detail: 'Culture · Market · ICP' },
+  { number: '02', code: 'DIRECTION', detail: 'Brand · Product · Channels' },
+  { number: '03', code: 'OPERATION', detail: 'Process · Supply · Rhythm' },
+  { number: '04', code: 'EVOLUTION', detail: 'Data · Consistency · Reach' },
+];
+const ECOSYSTEM_KEYS = ['c1', 'c2', 'c3', 'c4'];
 
 function AdminRoute() {
   const [active, setActive] = useState(() => window.location.hash === '#admin');
+
   useEffect(() => {
     const onHashChange = () => setActive(window.location.hash === '#admin');
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
+
   return active ? <Suspense fallback={null}><AdminLeads /></Suspense> : null;
 }
 
-// First Statement section with marker highlight sweep
-function StatementReveal() {
-  const markRef = useRef(null);
-  const { t, language } = useLanguage();
+function AccentTitle({ children }) {
+  const parts = String(children || '').split(/(\[[^\]]+\][.!?]?)/g);
 
-  useLayoutEffect(() => {
-    const mark = markRef.current;
-    if (!mark) return;
-    mark.classList.remove('revealed');
-    const ctx = gsap.context(() => {
-      gsap.delayedCall(0.05, () => {
-        const rect = mark.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.9) {
-          mark.classList.add('revealed');
-        }
-      });
-      gsap.to({}, {
-        scrollTrigger: {
-          trigger: mark,
-          start: 'top 88%',
-          onEnter: () => mark.classList.add('revealed'),
-          onLeaveBack: () => mark.classList.remove('revealed'),
-        }
-      });
-    });
-    return () => ctx.revert();
-  }, [language]);
-
-  return (
-    <section className="section">
-      <div className="inner">
-        <p className="statement">
-          {t('statements.one.text')}{' '}
-          <mark ref={markRef} className="stmt-mark">{t('statements.one.span')}</mark>
-        </p>
-      </div>
-    </section>
-  );
+  return parts.map((part, index) => {
+    const accent = part.match(/^\[([^\]]+)\]([.!?]?)$/);
+    return accent
+      ? <em key={index}>{accent[1]}{accent[2]}</em>
+      : <span key={index}>{part}</span>;
+  });
 }
 
-// Second Statement section with marker highlight sweep
-function SecondStatementReveal() {
-  const markRef = useRef(null);
-  const { t, language } = useLanguage();
+const openLeadModal = (event) => {
+  event?.preventDefault();
+  window.dispatchEvent(new CustomEvent('open-lead-modal'));
+};
 
-  useLayoutEffect(() => {
-    const mark = markRef.current;
-    if (!mark) return;
-    mark.classList.remove('revealed');
-    const ctx = gsap.context(() => {
-      gsap.delayedCall(0.05, () => {
-        const rect = mark.getBoundingClientRect();
-        if (rect.top < window.innerHeight * 0.9) {
-          mark.classList.add('revealed');
-        }
-      });
-      gsap.to({}, {
-        scrollTrigger: {
-          trigger: mark,
-          start: 'top 88%',
-          onEnter: () => mark.classList.add('revealed'),
-          onLeaveBack: () => mark.classList.remove('revealed'),
-        }
-      });
-    });
-    return () => ctx.revert();
-  }, [language]);
-
-  return (
-    <section className="section">
-      <div className="inner">
-        <p className="statement">
-          {t('statements.two.text')}{' '}
-          <mark ref={markRef} className="stmt-mark">{t('statements.two.span')}</mark>
-        </p>
-      </div>
-    </section>
-  );
+function ArrowIcon() {
+  return <span className="arrow-icon" aria-hidden="true">↗</span>;
 }
 
 export default function App() {
-  const progressBarRef = useRef(null);
-  const waFloatRef = useRef(null);
-  const [showFloat, setShowFloat] = useState(false);
+  const pageRef = useRef(null);
+  const heroVideoRef = useRef(null);
+  const { language, t } = useLanguage();
 
-  // Page Scroll Progress Bar & Floating Bubble Listener
-  useLayoutEffect(() => {
-    const progressBar = progressBarRef.current;
-    if (!progressBar) return;
+  useGSAP(() => {
+    const root = pageRef.current;
+    if (!root) return undefined;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    const media = gsap.matchMedia();
+    const revealItems = gsap.utils.toArray('[data-reveal]', root);
 
-    const ctx = gsap.context(() => {
-      gsap.to(progressBar, {
-        scaleX: 1,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: 'body',
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: true,
-        },
-      });
+    media.add(
+      {
+        desktop: '(min-width: 900px)',
+        mobile: '(max-width: 899px)',
+        reduceMotion: '(prefers-reduced-motion: reduce)',
+      },
+      (context) => {
+        const { desktop, reduceMotion } = context.conditions;
+
+        if (reduceMotion) {
+          gsap.set(revealItems, { clearProps: 'all' });
+          gsap.set('.process-card', { autoAlpha: 1, clearProps: 'transform' });
+          gsap.set('.float-cta', { autoAlpha: 1 });
+          return;
+        }
+
+        gsap.timeline({ defaults: { ease: 'power3.out' } })
+          .from('.site-header', { y: -24, duration: 0.7 })
+          .from('.hero-kicker', { y: 18, duration: 0.55 }, '-=0.3')
+          .from('.hero-title > *', { yPercent: 22, stagger: 0.07, duration: 0.9 }, '-=0.2')
+          .from('.hero-lead, .hero-actions, .hero-footnote', { y: 24, stagger: 0.1, duration: 0.65 }, '-=0.5')
+          .from('.hero-visual', { x: 34, scale: 1.025, duration: 1.15 }, '-=1');
+
+        gsap.to('.scroll-progress', {
+          scaleX: 1,
+          ease: 'none',
+          scrollTrigger: { start: 0, end: 'max', scrub: 0.2 },
+        });
+
+        gsap.to('.hero-video-media', {
+          yPercent: desktop ? 8 : 4,
+          scale: desktop ? 1.06 : 1.03,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.hero-section',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.8,
+          },
+        });
+
+        revealItems.forEach((element) => {
+          gsap.from(element, {
+            y: 44,
+            autoAlpha: 0,
+            duration: 0.85,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: element,
+              start: 'clamp(top 88%)',
+              once: true,
+            },
+          });
+        });
+
+        const floatCta = root.querySelector('.float-cta');
+        gsap.set(floatCta, { autoAlpha: 0, y: 18 });
+        ScrollTrigger.create({
+          trigger: '.hero-section',
+          start: 'bottom 70%',
+          onEnter: () => gsap.to(floatCta, { autoAlpha: 1, y: 0, duration: 0.35, overwrite: true }),
+          onLeaveBack: () => gsap.to(floatCta, { autoAlpha: 0, y: 18, duration: 0.25, overwrite: true }),
+        });
+
+        const processCards = gsap.utils.toArray('.process-card', root);
+        if (desktop) {
+          gsap.set(processCards.slice(1), { autoAlpha: 0, y: 54, scale: 0.97 });
+          gsap.set('.process-progress', { scaleY: 0, transformOrigin: 'top center' });
+
+          const processTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: '.process-stage',
+              start: 'top top',
+              end: '+=2600',
+              pin: true,
+              scrub: 0.8,
+              anticipatePin: 1,
+            },
+          });
+
+          processTimeline.to('.process-progress', { scaleY: 1, duration: 3, ease: 'none' }, 0);
+
+          processCards.slice(1).forEach((card, index) => {
+            const position = index + 0.72;
+            processTimeline
+              .to(processCards[index], { autoAlpha: 0, y: -44, scale: 0.98, duration: 0.28 }, position)
+              .to(card, { autoAlpha: 1, y: 0, scale: 1, duration: 0.38 }, position + 0.06);
+          });
+        } else {
+          processCards.forEach((card) => {
+            gsap.from(card, {
+              y: 34,
+              autoAlpha: 0,
+              duration: 0.65,
+              scrollTrigger: { trigger: card, start: 'top 90%', once: true },
+            });
+          });
+        }
+
+        root.querySelectorAll('[data-count]').forEach((element) => {
+          const target = Number(element.dataset.count);
+          const suffix = element.dataset.suffix || '';
+          const counter = { value: 0 };
+
+          gsap.to(counter, {
+            value: target,
+            duration: 1.6,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: element, start: 'top 88%', once: true },
+            onUpdate: () => {
+              element.textContent = `${Math.round(counter.value)}${suffix}`;
+            },
+          });
+        });
+      },
+    );
+
+    let mounted = true;
+    document.fonts?.ready.then(() => {
+      if (mounted) ScrollTrigger.refresh();
     });
 
-    return () => ctx.revert();
-  }, []);
-
-  // WhatsApp Floating Button Threshold Trigger
-  useEffect(() => {
-    let frameId = 0;
-    const handleScrollThreshold = () => {
-      if (frameId) return;
-      frameId = requestAnimationFrame(() => {
-        setShowFloat(window.scrollY > 420);
-        frameId = 0;
-      });
-    };
-    window.addEventListener('scroll', handleScrollThreshold, { passive: true });
-    handleScrollThreshold();
     return () => {
-      window.removeEventListener('scroll', handleScrollThreshold);
-      cancelAnimationFrame(frameId);
+      mounted = false;
+      media.revert();
     };
-  }, []);
+  }, { scope: pageRef, dependencies: [language], revertOnUpdate: true });
 
-  // Ambient mouse position tracking for spotlight and dotted highlight
   useEffect(() => {
-    const isTouch = window.matchMedia('(hover: none)').matches;
-    if (isTouch) return;
+    const video = heroVideoRef.current;
+    const desktopMedia = window.matchMedia('(min-width: 900px)');
+    if (!video || !desktopMedia.matches) return undefined;
 
-    const spot = document.getElementById('spot');
-    const root = document.documentElement;
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (connection?.saveData || reduceMotion) return undefined;
 
-    const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    const current = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    let frameId = 0;
-
-    const onMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      if (!frameId) frameId = requestAnimationFrame(tick);
+    const loadVideo = () => {
+      if (video.src) return;
+      video.src = video.dataset.src;
+      video.load();
+      video.play().catch(() => {});
     };
 
-    window.addEventListener('pointermove', onMouseMove, { passive: true });
+    const idleId = 'requestIdleCallback' in window
+      ? window.requestIdleCallback(loadVideo, { timeout: 1800 })
+      : window.setTimeout(loadVideo, 1000);
 
-    const tick = () => {
-      current.x += (mouse.x - current.x) * 0.08;
-      current.y += (mouse.y - current.y) * 0.08;
+    let isInViewport = false;
 
-      if (spot) {
-        spot.style.transform = `translate3d(${current.x}px, ${current.y}px, 0) translate(-50%, -50%)`;
-      }
+    const observer = new IntersectionObserver(([entry]) => {
+      isInViewport = entry.isIntersecting;
+      if (!video.src) return;
+      if (isInViewport && !document.hidden) video.play().catch(() => {});
+      else video.pause();
+    }, { threshold: 0.08 });
 
-      root.style.setProperty('--mouse-x', `${current.x}px`);
-      root.style.setProperty('--mouse-y', `${current.y}px`);
+    observer.observe(video);
 
-      if (Math.abs(mouse.x - current.x) > 0.2 || Math.abs(mouse.y - current.y) > 0.2) {
-        frameId = requestAnimationFrame(tick);
-      } else {
-        frameId = 0;
-      }
+    const onVisibilityChange = () => {
+      if (document.hidden || !isInViewport) video.pause();
+      else if (video.src) video.play().catch(() => {});
     };
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
 
     return () => {
-      window.removeEventListener('pointermove', onMouseMove);
-      cancelAnimationFrame(frameId);
+      if ('cancelIdleCallback' in window) window.cancelIdleCallback(idleId);
+      else clearTimeout(idleId);
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      video.pause();
     };
   }, []);
+
+  const systems = Array.from({ length: 5 }, (_, index) => ({
+    icon: SYSTEM_ICONS[index],
+    title: t(`systems.s${index + 1}.title`),
+    desc: t(`systems.s${index + 1}.desc`),
+  }));
 
   return (
-    <>
-      {/* Scroll Progress Bar */}
-      <div
-        ref={progressBarRef}
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          transform: 'scaleX(0)',
-          transformOrigin: 'left center',
-          willChange: 'transform',
-          height: '3px',
-          backgroundColor: 'var(--signal)',
-          zIndex: 99999,
-          pointerEvents: 'none',
-        }}
-      />
+    <div ref={pageRef} className="site-shell">
+      <div className="scroll-progress" aria-hidden="true" />
+      <div className="ambient ambient-one" aria-hidden="true" />
+      <div className="ambient ambient-two" aria-hidden="true" />
 
-      {/* Ambient background layers */}
-      <div className="bg-layer bg-dots"></div>
-      <div className="bg-layer bg-dots-hover"></div>
-      <div className="bg-layer bg-grid"></div>
-      <div className="bg-layer bg-noise"></div>
-      <div className="spotlight" id="spot"></div>
-
-      {/* SVG Symbol Definitions (Logo definitions to ensure cross-component availability) */}
-      <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
-        <defs>
-          <linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#FFFFFF" />
-            <stop offset="0.18" stopColor="#C9C9D2" />
-            <stop offset="0.40" stopColor="#7B7B85" />
-            <stop offset="0.50" stopColor="#F4F4F8" />
-            <stop offset="0.60" stopColor="#9A9AA4" />
-            <stop offset="0.82" stopColor="#6E6E78" />
-            <stop offset="1" stopColor="#EDEDF2" />
-          </linearGradient>
-          <linearGradient id="gleam" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stopColor="#fff" stopOpacity="0" />
-            <stop offset="0.46" stopColor="#fff" stopOpacity="0" />
-            <stop offset="0.5" stopColor="#fff" stopOpacity="0.9" />
-            <stop offset="0.54" stopColor="#fff" stopOpacity="0" />
-            <stop offset="1" stopColor="#fff" stopOpacity="0" />
-          </linearGradient>
-          <symbol id="goon" viewBox="0 0 122 28">
-            <path d="M 38.16,13.07 L 38.12,15.23 L 38.28,16.42 L 38.55,17.52 L 38.92,18.52 L 39.46,19.62 L 40.06,20.58 L 40.83,21.56 L 42.58,23.22 L 43.58,23.92 L 44.53,24.44 L 45.53,24.87 L 46.62,25.19 L 48.88,25.47 L 50.58,25.41 L 52.03,25.18 L 53.38,24.77 L 54.78,24.13 L 56.17,23.21 L 57.20,22.25 L 57.74,21.41 L 57.89,20.52 L 57.70,19.79 L 57.24,19.12 L 56.60,18.63 L 55.92,18.40 L 55.28,18.41 L 54.58,18.62 L 52.38,19.97 L 51.38,20.43 L 50.42,20.69 L 49.28,20.79 L 47.92,20.62 L 46.58,20.14 L 45.41,19.39 L 44.40,18.39 L 43.53,17.08 L 42.98,15.57 L 42.83,13.98 L 43.07,12.52 L 43.73,11.08 L 44.76,9.76 L 46.12,8.70 L 47.53,8.08 L 48.92,7.84 L 50.38,7.92 L 51.78,8.33 L 53.17,9.11 L 55.42,11.04 L 65.22,20.82 L 67.18,22.61 L 68.47,23.59 L 69.88,24.43 L 71.22,24.99 L 72.53,25.32 L 73.82,25.46 L 75.28,25.48 L 76.38,25.39 L 77.57,25.16 L 78.62,24.82 L 79.68,24.35 L 80.68,23.77 L 81.72,23.01 L 83.37,21.41 L 84.11,20.42 L 84.66,19.48 L 85.22,18.23 L 85.57,17.17 L 85.83,15.98 L 85.94,14.73 L 85.80,12.52 L 85.27,10.52 L 84.30,8.52 L 84.30,8.52 L 84.30,8.52 L 84.30,8.52 L 84.30,8.52 L 84.30,8.52 L 84.30,8.52 Z M 3.25,8.90 L 2.62,10.65 L 2.37,12.65 L 2.49,15.25 L 2.70,16.30 L 3.05,17.30 L 3.96,19.00 L 5.43,20.77 L 7.15,22.21 L 9.00,23.22 L 10.85,23.87 L 13.40,24.53 L 15.05,24.79 L 16.95,24.85 L 21.50,24.81 L 22.95,24.65 L 25.65,23.97 L 26.80,23.55 L 28.35,22.83 L 29.03,22.67 L 29.49,22.70 L 29.94,22.90 L 31.56,24.26 L 32.65,24.56 L 33.85,24.57 L 34.66,24.37 L 35.31,23.95 L 35.74,23.31 L 35.93,22.60 L 36.02,21.35 L 36.02,21.35 L 35.95,14.05 L 35.80,13.37 L 35.49,12.80 L 35.07,12.39 L 34.48,12.09 L 33.80,11.95 L 32.75,11.90 L 21.85,11.96 L 20.80,12.05 L 20.04,12.34 L 19.65,12.64 L 19.33,13.08 L 19.14,13.56 L 19.06,14.10 L 19.11,14.65 L 19.30,15.19 L 19.57,15.61 L 19.93,15.94 L 20.52,16.23 L 21.25,16.37 L 25.80,16.45 L 26.39,16.63 L 26.71,16.96 L 26.73,17.27 L 26.56,17.62 L 26.24,17.94 L 25.75,18.25 L 24.30,18.76 L 22.50,19.07 L 20.65,19.19 L 17.35,19.16 L 16.00,19.01 L 14.70,18.65 L 13.40,18.00 L 12.11,16.98 L 11.22,15.85 L 10.73,14.70 L 10.54,13.45 L 10.64,12.20 L 10.97,11.15 L 11.62,10.14 L 12.56,9.22 L 13.60,8.56 L 14.90,8.05 L 16.50,7.68 L 18.25,7.48 L 20.25,7.46 L 21.65,7.55 L 23.30,7.83 L 25.10,8.40 L 28.05,10.19 L 28.80,10.50 L 29.55,10.67 L 33.45,10.72 L 34.19,10.61 L 34.80,10.34 L 35.30,9.82 L 35.47,9.09 L 35.31,8.30 L 34.82,7.35 L 34.82,7.35 Z M 88.67,2.71 L 88.38,3.38 L 88.30,4.32 L 88.31,21.77 L 88.51,22.91 L 88.75,23.32 L 89.10,23.65 L 89.63,23.90 L 90.32,24.03 L 93.97,24.02 L 94.97,23.74 L 95.32,23.49 L 95.60,23.12 L 95.82,22.57 L 95.90,21.77 L 95.94,12.18 L 96.03,11.68 L 96.22,11.28 L 96.46,11.06 L 96.46,11.06 L 96.78,10.98 L 97.43,11.15 L 98.28,11.77 L 108.72,21.18 L 110.62,22.80 L 111.72,23.56 L 112.47,23.88 L 113.28,24.02 L 117.12,24.04 L 118.25,23.81 L 118.66,23.55 L 118.98,23.20 L 119.27,22.48 L 119.35,21.48 L 119.34,4.12 L 119.14,3.00 L 118.89,2.58 L 118.55,2.26 L 118.02,2.00 L 117.38,1.88 L 113.78,1.87 L 112.76,2.12 L 112.41,2.37 L 112.11,2.73 L 111.85,3.38 L 111.76,4.28 L 111.74,12.93 L 111.46,13.76 L 111.24,13.96 L 110.92,14.05 L 110.22,13.86 L 109.43,13.26 L 98.22,3.22 L 96.97,2.33 L 96.18,2.01 L 95.32,1.88 L 90.57,1.87 L 89.44,2.08 L 89.02,2.33 Z" />
-          </symbol>
-          <symbol id="wa" viewBox="0 0 24 24">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.113.549 4.099 1.51 5.828L0 24l6.335-1.483A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.882 9.882 0 01-5.037-1.378l-.361-.214-3.741.876.892-3.658-.235-.374A9.859 9.859 0 012.118 12C2.118 6.533 6.533 2.118 12 2.118c5.467 0 9.882 4.415 9.882 9.882 0 5.467-4.415 9.882-9.882 9.882z" />
-          </symbol>
-        </defs>
-      </svg>
-
-      {/* Custom Fluid Cursor */}
-      <CustomCursor />
-
-      {/* Lead capture modal form */}
+      <Header />
       <LeadModal />
       <AdminRoute />
 
-      {/* Floating WhatsApp Bubble */}
-      <a
-        ref={waFloatRef}
-        className={`wa-float ${showFloat ? 'show' : ''}`}
-        id="waFloat"
-        href="#"
-        onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('open-lead-modal')); }}
-        aria-label="Falar no WhatsApp"
-      >
-        <span className="bubble">Fale com a GOON</span>
-        <span className="btn-round">
-          <svg viewBox="0 0 24 24">
-            <use href="#wa" />
-          </svg>
-        </span>
-      </a>
-
-      {/* Header section */}
-      <Header />
-
-      {/* Main sections container */}
       <main>
-        <Hero />
+        <section className="hero-section" id="home">
+          <div className="hero-copy">
+            <p className="eyebrow hero-kicker"><span /> {t('hero.sub')} / CULTURE · DATA · DESIGN</p>
+            <h1 className="hero-title"><AccentTitle>{t('hero.title')}</AccentTitle></h1>
+            <p className="hero-lead">{t('hero.lead')}</p>
+            <div className="hero-actions">
+              <a className="button button-primary" href="#contact" onClick={openLeadModal}>
+                {t('hero.talkBtn')} <ArrowIcon />
+              </a>
+              <a className="button button-secondary" href="#timeline">{t('hero.methodBtn')}</a>
+            </div>
+            <p className="hero-footnote"><span>GOON</span> — ESTRATÉGIA / EXECUÇÃO / RESULTADOS</p>
+          </div>
 
-        {/* Marquee component */}
-        <div className="marquee" aria-hidden="true">
-          <div className="marquee-track">
-            {[0, 1].map(i => (
-              <span key={i}>
-                <b>Branding</b><i className="dotx"></i>
-                <b>Produto</b><i className="dotx"></i>
-                <b>Operação</b><i className="dotx"></i>
-                <b>Growth</b><i className="dotx"></i>
-                <b>TikTok Shop</b><i className="dotx"></i>
-                <b>Gestão</b><i className="dotx"></i>
-                <b>Supply Chain</b><i className="dotx"></i>
-                <b>Posicionamento</b><i className="dotx"></i>
-                <b>Performance</b><i className="dotx"></i>
-                <b>Escala Global</b><i className="dotx"></i>
-              </span>
+          <div className="hero-visual" aria-hidden="true">
+            <div className="hero-video-media">
+              <video
+                ref={heroVideoRef}
+                data-src="/videos/hero-planet.mp4"
+                poster="/videos/hero-planet-poster.webp"
+                loop
+                muted
+                playsInline
+                preload="none"
+              />
+            </div>
+            <div className="hero-video-shade" />
+          </div>
+
+          <div className="hero-scroll" aria-hidden="true"><span>SCROLL TO EXPLORE</span><i /></div>
+        </section>
+
+        <section className="signal-strip" aria-label="Áreas de atuação">
+          <div className="signal-track">
+            {[0, 1].map((copy) => (
+              <div className="signal-group" key={copy} aria-hidden={copy === 1 ? 'true' : undefined}>
+                {['BRAND', 'PRODUCT', 'OPERATIONS', 'GROWTH', 'SOCIAL COMMERCE', 'GLOBAL SCALE'].map((item) => (
+                  <span key={item}>{item}<i /></span>
+                ))}
+              </div>
             ))}
           </div>
-        </div>
-
-        <StatementReveal />
+        </section>
 
         <LogoCarousel />
 
-        <Timeline />
+        <section className="manifesto-section section-pad">
+          <div className="section-index">01 — MANIFESTO</div>
+          <div className="manifesto-copy" data-reveal>
+            <p>{t('statements.one.text')}</p>
+            <h2>{t('statements.one.span')}</h2>
+          </div>
+          <div className="manifesto-note" data-reveal>
+            <span>GOON / CULTURE · DATA · DESIGN</span>
+            <p>{t('systems.lead')}</p>
+          </div>
+        </section>
 
-        <Ecosystem />
+        <section className="systems-section section-pad" id="systems">
+          <header className="section-heading" data-reveal>
+            <div>
+              <p className="eyebrow"><span /> 02 / THE SYSTEM</p>
+              <h2>{t('systems.title')}</h2>
+            </div>
+            <p>{t('systems.lead')}</p>
+          </header>
 
-        <Stats />
+          <div className="systems-grid">
+            {systems.map((system, index) => (
+              <article className="system-card" data-reveal key={system.title}>
+                <div className="system-card-top">
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <i>{system.icon}</i>
+                </div>
+                <h3>{system.title}</h3>
+                <p>{system.desc}</p>
+                <div className="card-line" />
+              </article>
+            ))}
+          </div>
+        </section>
 
-        <SecondStatementReveal />
+        <section className="process-section" id="timeline">
+          <div className="process-stage">
+            <div className="process-copy">
+              <p className="eyebrow"><span /> 03 / {t('nav.timeline')}</p>
+              <h2>{t('timeline.title')}</h2>
+              <p>{t('timeline.lead')}</p>
+              <div className="process-rail" aria-hidden="true"><span className="process-progress" /></div>
+            </div>
 
-        <Contact />
+            <div className="process-cards">
+              {PROCESS_META.map((step, index) => (
+                <article className="process-card" key={step.number}>
+                  <div className="process-card-head">
+                    <span>{step.number}</span>
+                    <span>{step.code}</span>
+                  </div>
+                  <div className="process-symbol" aria-hidden="true">{SYSTEM_ICONS[index]}</div>
+                  <div>
+                    <p>{step.detail}</p>
+                    <h3>{t(`timeline.step${index + 1}.title`)}</h3>
+                    <p>{t(`timeline.step${index + 1}.desc`)}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="ecosystem-section section-pad" id="ecosystem">
+          <header className="section-heading" data-reveal>
+            <div>
+              <p className="eyebrow"><span /> 04 / PORTFOLIO</p>
+              <h2>{t('ecosystem.title')}</h2>
+            </div>
+            <p>{t('ecosystem.lead')}</p>
+          </header>
+
+          <div className="ecosystem-grid">
+            {ECOSYSTEM_KEYS.map((key, index) => (
+              <a className={`ecosystem-card eco-${index + 1}`} data-reveal href="#contact" onClick={openLeadModal} key={key}>
+                <div className="ecosystem-card-index">0{index + 1}</div>
+                <div>
+                  <p>GOON / {['BRAND STRATEGY', 'CULTURE & INSIGHTS', 'MULTI-CHANNEL NETWORK', 'KNOWLEDGE NETWORK'][index]}</p>
+                  <h3>{t(`ecosystem.${key}.title`)}</h3>
+                  <span>{t(`ecosystem.${key}.desc`)}</span>
+                </div>
+                <ArrowIcon />
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section className="proof-section section-pad" id="about">
+          <div className="proof-intro" data-reveal>
+            <p className="eyebrow"><span /> 05 / TRACK RECORD</p>
+            <h2>{t('stats.title1')}<br /><em>{t('stats.title2')}</em></h2>
+            <p>{t('stats.lead')}</p>
+          </div>
+
+          <div className="stats-grid" data-reveal>
+            <div className="stat-item"><strong data-count="20" data-suffix="+">20+</strong><span>{t('stats.s1')}</span></div>
+            <div className="stat-item"><strong data-count="40" data-suffix="+">40+</strong><span>{t('stats.s2')}</span></div>
+            <div className="stat-item"><strong data-count="1" data-suffix="B+">1B+</strong><span>{t('stats.s3')}</span></div>
+            <div className="stat-item"><strong>∞</strong><span>{t('stats.s4')}</span></div>
+          </div>
+
+          <div className="network-panel" data-reveal>
+            <div className="network-copy">
+              <span>GLOBAL NETWORK / ACTIVE</span>
+              <h3>Presença onde a cadeia acontece.</h3>
+              <p>Brasil, LATAM, México, Estados Unidos, Europa e Oriente Médio conectados por uma rede de supply chain, distribuição e expansão.</p>
+            </div>
+            <div className="network-map" aria-hidden="true">
+              <span className="map-line line-one" /><span className="map-line line-two" /><span className="map-line line-three" />
+              <i className="map-dot dot-br" /><i className="map-dot dot-us" /><i className="map-dot dot-eu" /><i className="map-dot dot-ae" />
+              <b className="map-label label-br">BR</b><b className="map-label label-us">US</b><b className="map-label label-eu">EU</b><b className="map-label label-ae">AE</b>
+            </div>
+          </div>
+        </section>
+
+        <section className="contact-section section-pad" id="contact">
+          <div className="contact-panel" data-reveal>
+            <div className="contact-meta">
+              <p className="eyebrow"><span /> 06 / START</p>
+              <span>SÃO PAULO · LONDON · DUBAI · DORAL · CIUDAD DEL ESTE</span>
+            </div>
+            <h2>{t('contact.finalTitle1')}<br /><em>{t('contact.finalTitle2')}</em></h2>
+            <p>{t('contact.finalDesc')}</p>
+            <div className="contact-actions">
+              <a className="button button-primary" href="#" onClick={openLeadModal}>{t('contact.finalTalk')} <ArrowIcon /></a>
+              <a className="text-link" href="mailto:contato@goon-global.com">contato@goon-global.com <ArrowIcon /></a>
+            </div>
+          </div>
+        </section>
       </main>
 
-      <Footer />
-    </>
+      <footer className="site-footer">
+        <a className="footer-logo" href="#home"><img src="/goon-logo-hero.png" alt="GOON" width="565" height="172" loading="lazy" /></a>
+        <div><span>CULTURE / DATA / DESIGN</span><span>{t('footer.rights')}</span></div>
+        <nav aria-label="Redes sociais"><a href="https://www.instagram.com/goon.method/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="#admin">Admin</a></nav>
+      </footer>
+
+      <a className="float-cta" href="#" onClick={openLeadModal} aria-label={t('hero.talkBtn')}>
+        <span className="float-pulse" />
+        <span>{t('hero.talkBtn')}</span>
+        <ArrowIcon />
+      </a>
+    </div>
   );
 }

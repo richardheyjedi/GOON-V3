@@ -1,95 +1,54 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useMagneticButton } from '../hooks/useMagneticButton';
+import { useState } from 'react';
 import { useLanguage } from '../context/languageContext';
 
+const openLeadModal = (event) => {
+  event.preventDefault();
+  window.dispatchEvent(new CustomEvent('open-lead-modal'));
+};
+
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
-  const waBtnRef = useRef(null);
   const { language, setLanguage, t } = useLanguage();
-
-  useMagneticButton(waBtnRef, 50, 0.25);
-
-  useEffect(() => {
-    const sectionElements = ['home', 'ecosystem', 'contact']
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
-    let frameId = 0;
-    
-    const handleScroll = () => {
-      if (frameId) return;
-      frameId = requestAnimationFrame(() => {
-        let currentSection = 'home';
-        const scrollPosition = window.scrollY + 180;
-        for (const element of sectionElements) {
-          if (element.offsetTop <= scrollPosition) currentSection = element.id;
-        }
-        setActiveSection((current) => current === currentSection ? current : currentSection);
-        const nextScrolled = window.scrollY > 40;
-        setScrolled((current) => current === nextScrolled ? current : nextScrolled);
-        frameId = 0;
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Run immediately on load
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      cancelAnimationFrame(frameId);
-    };
-  }, []);
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className={`top ${scrolled ? 'scrolled' : ''}`} id="top">
-      <a href="#home" aria-label="GOON">
-        <img src="/goon-logo-white-512.png" alt="GOON" className="logo" width="512" height="512" decoding="async" fetchPriority="high" />
+    <header className="site-header" aria-label="Navegação principal">
+      <a className="brand" href="#home" onClick={closeMenu} aria-label="GOON — início">
+        <img src="/goon-logo-hero.png" alt="GOON" width="565" height="172" fetchPriority="high" />
       </a>
-      <nav id="nav" className={menuOpen ? 'open' : ''}>
-        <a href="#home" className={activeSection === 'home' ? 'active' : ''} onClick={() => setMenuOpen(false)}>{t('nav.home') || 'Home'}</a>
-        <a href="#ecosystem" className={activeSection === 'ecosystem' ? 'active' : ''} onClick={() => setMenuOpen(false)}>{t('nav.ecosystem')}</a>
-        <a href="#contact" className={activeSection === 'contact' ? 'active' : ''} onClick={() => setMenuOpen(false)}>{t('nav.contact')}</a>
-        <a
-          ref={waBtnRef}
-          className="btn btn-wa cta-mini"
-          id="navWa"
-          href="#"
-          onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent('open-lead-modal')); }}
-        >
-          <svg viewBox="0 0 24 24">
-            <use href="#wa" />
-          </svg>{' '}
-          WhatsApp
-        </a>
-      </nav>
-      
-      <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
-        <div className="lang-switcher">
-          <button className="lang-btn" aria-label="Language Selector">
-            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '6px', verticalAlign: 'middle' }}>
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-              <path d="M2 12h20" />
-            </svg>
-            {language.toUpperCase()}
-          </button>
-          <div className="lang-dropdown">
-            <button onClick={() => setLanguage('pt')}>PORTUGUÊS</button>
-            <button onClick={() => setLanguage('en')}>ENGLISH</button>
-            <button onClick={() => setLanguage('es')}>ESPAÑOL</button>
-          </div>
-        </div>
 
-        <button
-          className={`burger ${menuOpen ? 'open' : ''}`}
-          id="burger"
-          aria-label="Menu"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+      <button
+        className={`menu-toggle ${menuOpen ? 'is-open' : ''}`}
+        type="button"
+        aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+        aria-expanded={menuOpen}
+        aria-controls="primary-navigation"
+        onClick={() => setMenuOpen((current) => !current)}
+      >
+        <span />
+        <span />
+      </button>
+
+      <nav id="primary-navigation" className={`primary-nav ${menuOpen ? 'is-open' : ''}`}>
+        <a href="#systems" onClick={closeMenu}>{t('nav.systems')}</a>
+        <a href="#timeline" onClick={closeMenu}>{t('nav.timeline')}</a>
+        <a href="#ecosystem" onClick={closeMenu}>{t('nav.ecosystem')}</a>
+        <a href="#contact" onClick={closeMenu}>{t('nav.contact')}</a>
+      </nav>
+
+      <div className="header-actions">
+        <label className="language-control">
+          <span className="sr-only">Idioma</span>
+          <select value={language} onChange={(event) => setLanguage(event.target.value)}>
+            <option value="pt">PT</option>
+            <option value="en">EN</option>
+            <option value="es">ES</option>
+          </select>
+        </label>
+        <a className="header-cta" href="#contact" onClick={openLeadModal}>
+          <span>{t('hero.talkBtn')}</span>
+          <span aria-hidden="true">↗</span>
+        </a>
       </div>
     </header>
   );
