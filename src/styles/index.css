@@ -9,8 +9,9 @@
   --muted: #989e96;
   --signal: #c8ff2f;
   --signal-dark: #0b0d08;
-  --font-display: "Sora", sans-serif;
-  --font-text: "Inter", sans-serif;
+  --font-headline: "Sora", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-text: "Space Grotesk", sans-serif;
   --font-mono: "Space Mono", monospace;
   --page: min(1480px, calc(100vw - 64px));
   --header-h: 68px;
@@ -63,7 +64,12 @@ svg {
 }
 
 h1,
-h2,
+h2 {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
 h3,
 .button,
 .header-cta {
@@ -325,10 +331,10 @@ h3,
   max-width: 820px;
   color: var(--text);
   font-size: clamp(56px, 5vw, 92px);
-  font-weight: 710;
-  line-height: 0.86;
-  letter-spacing: -0.07em;
-  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.055em;
+  font-family: var(--font-headline);
 }
 
 .hero-title > * {
@@ -337,7 +343,7 @@ h3,
 
 .hero-title em {
   color: var(--signal);
-  font-family: var(--font-display);
+  font-family: var(--font-headline);
   font-weight: 800;
   font-style: normal;
 }
@@ -850,8 +856,8 @@ a:hover .arrow-icon {
   margin: 0;
   font-size: clamp(44px, 6vw, 104px);
   line-height: 0.98;
-  letter-spacing: -0.055em;
-  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+  font-family: var(--font-headline);
 }
 
 .manifesto-copy p {
@@ -897,8 +903,8 @@ a:hover .arrow-icon {
   margin: 18px 0 0;
   font-size: clamp(54px, 6vw, 100px);
   line-height: 0.92;
-  letter-spacing: -0.06em;
-  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+  font-family: var(--font-headline);
 }
 
 .section-heading > p,
@@ -1212,7 +1218,7 @@ a:hover .arrow-icon {
 .proof-intro h2 em,
 .contact-panel h2 em {
   color: var(--signal);
-  font-family: var(--font-display);
+  font-family: var(--font-headline);
   font-weight: 800;
   font-style: normal;
 }
@@ -1240,10 +1246,10 @@ a:hover .arrow-icon {
 .stat-item strong {
   color: var(--text);
   font-size: clamp(55px, 6vw, 92px);
-  font-weight: 650;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.06em;
-  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+  font-family: var(--font-headline);
 }
 
 .stat-item span {
@@ -1412,8 +1418,8 @@ a:hover .arrow-icon {
   margin: 90px 0 28px;
   font-size: clamp(68px, 8.5vw, 145px);
   line-height: 0.84;
-  letter-spacing: -0.07em;
-  font-family: var(--font-display);
+  letter-spacing: -0.035em;
+  font-family: var(--font-headline);
 }
 
 .contact-panel h2 em {
