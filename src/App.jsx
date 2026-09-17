@@ -17,7 +17,11 @@ const PROCESS_META = [
   { number: '03', code: 'OPERATION', detail: 'Process · Supply · Rhythm' },
   { number: '04', code: 'EVOLUTION', detail: 'Data · Consistency · Reach' },
 ];
-const ECOSYSTEM_KEYS = ['c1', 'c2', 'c3', 'c4'];
+const ECOSYSTEM_ITEMS = [
+  { key: 'c1', label: 'BRAND STRATEGY' },
+  { key: 'c3', label: 'MULTI-CHANNEL NETWORK' },
+  { key: 'c4', label: 'KNOWLEDGE NETWORK' },
+];
 
 function AdminRoute() {
   const [active, setActive] = useState(() => window.location.hash === '#admin');
@@ -375,11 +379,11 @@ export default function App() {
           </header>
 
           <div className="ecosystem-grid">
-            {ECOSYSTEM_KEYS.map((key, index) => (
+            {ECOSYSTEM_ITEMS.map(({ key, label }, index) => (
               <a className={`ecosystem-card eco-${index + 1}`} data-reveal href="#contact" onClick={openLeadModal} key={key}>
                 <div className="ecosystem-card-index">0{index + 1}</div>
                 <div>
-                  <p>GOON / {['BRAND STRATEGY', 'CULTURE & INSIGHTS', 'MULTI-CHANNEL NETWORK', 'KNOWLEDGE NETWORK'][index]}</p>
+                  <p>GOON / {label}</p>
                   <h3>{t(`ecosystem.${key}.title`)}</h3>
                   <span>{t(`ecosystem.${key}.desc`)}</span>
                 </div>

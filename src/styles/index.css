@@ -798,7 +798,7 @@ a:hover .arrow-icon {
   width: max-content;
   display: flex;
   align-items: center;
-  animation: clientTicker 76s linear infinite;
+  animation: clientTicker 122s linear infinite;
   will-change: transform;
 }
 
@@ -837,6 +837,34 @@ a:hover .arrow-icon {
 .client-logo-item:hover img {
   opacity: 0.94;
   transform: scale(1.66);
+}
+
+.client-logo-item img.client-logo-compact {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transform: none;
+}
+
+.client-logo-item:hover img.client-logo-compact {
+  transform: scale(1.06);
+}
+
+.client-logo-item img.client-logo-lm {
+  transform: scale(1.32);
+}
+
+.client-logo-item:hover img.client-logo-lm {
+  transform: scale(1.38);
+}
+
+.client-logo-item img.client-logo-tee {
+  width: 86%;
+  height: 86%;
+}
+
+.client-logo-item:hover img.client-logo-tee {
+  transform: scale(1.04);
 }
 
 @keyframes clientTicker {
@@ -1144,11 +1172,6 @@ a:hover .arrow-icon {
   background: var(--panel);
   overflow: hidden;
   transition: transform 350ms var(--ease), border-color 300ms ease, background-color 300ms ease;
-}
-
-.ecosystem-card:first-child,
-.ecosystem-card:nth-child(4) {
-  grid-column: span 8;
 }
 
 .ecosystem-card:hover {
