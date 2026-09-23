@@ -77,7 +77,7 @@ export default function AdminLeads() {
   const filteredLeads = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase('pt-BR');
     if (!normalized) return leads;
-    return leads.filter((lead) => [lead.name, lead.phone, lead.revenue, lead.instagram]
+    return leads.filter((lead) => [lead.name, lead.phone, lead.company, lead.niche, lead.sales_channel, lead.instagram]
       .some((value) => String(value || '').toLocaleLowerCase('pt-BR').includes(normalized)));
   }, [leads, query]);
 
@@ -113,7 +113,7 @@ export default function AdminLeads() {
   };
 
   const exportCsv = () => {
-    const rows = [['Data', 'Nome', 'Telefone', 'Faturamento', 'Instagram'], ...filteredLeads.map((lead) => [formatDate(lead.created_at), lead.name, lead.phone, lead.revenue, lead.instagram])];
+    const rows = [['Data', 'Nome', 'Telefone', 'Empresa / Marca', 'Nicho', 'Canal de vendas', 'Instagram'], ...filteredLeads.map((lead) => [formatDate(lead.created_at), lead.name, lead.phone, lead.company, lead.niche, lead.sales_channel, lead.instagram])];
     const content = `\uFEFF${rows.map((row) => row.map(csvCell).join(';')).join('\n')}`;
     const url = URL.createObjectURL(new Blob([content], { type: 'text/csv;charset=utf-8' }));
     const link = document.createElement('a');
@@ -157,14 +157,14 @@ export default function AdminLeads() {
         <div className="admin-header-actions"><button className="btn btn-ghost" onClick={logout}>Sair</button><button className="admin-close" onClick={close} aria-label="Fechar central">×</button></div>
       </header>
       <div className="admin-toolbar">
-        <input type="search" placeholder="Buscar por nome, telefone ou Instagram" value={query} onChange={(event) => setQuery(event.target.value)} />
+        <input type="search" placeholder="Buscar por nome, empresa, nicho, telefone ou Instagram" value={query} onChange={(event) => setQuery(event.target.value)} />
         <button className="btn btn-ghost" onClick={exportCsv} disabled={!filteredLeads.length}>Exportar CSV</button>
         <button className="btn admin-danger" onClick={removeAll} disabled={!leads.length}>Limpar todos</button>
       </div>
       {error && <div className="admin-notice admin-error" role="alert">{error}</div>}
       {loadingLeads ? <div className="admin-empty"><p>Carregando leads…</p></div> : filteredLeads.length ? (
-        <div className="admin-table-wrap"><table className="admin-table"><thead><tr><th>Data</th><th>Nome</th><th>Telefone</th><th>Faturamento</th><th>Instagram</th><th></th></tr></thead><tbody>
-          {filteredLeads.map((lead) => <tr key={lead.id}><td>{formatDate(lead.created_at)}</td><td><strong>{lead.name}</strong></td><td><a href={`tel:${lead.phone}`}>{lead.phone}</a></td><td>{lead.revenue}</td><td>{lead.instagram}</td><td><button className="admin-delete" onClick={() => remove(lead.id)} aria-label={`Excluir lead ${lead.name}`}>Excluir</button></td></tr>)}
+        <div className="admin-table-wrap"><table className="admin-table"><thead><tr><th>Data</th><th>Nome</th><th>Telefone</th><th>Empresa / Marca</th><th>Nicho</th><th>Canal de vendas</th><th>Instagram</th><th></th></tr></thead><tbody>
+          {filteredLeads.map((lead) => <tr key={lead.id}><td>{formatDate(lead.created_at)}</td><td><strong>{lead.name}</strong></td><td><a href={`tel:${lead.phone}`}>{lead.phone}</a></td><td>{lead.company}</td><td>{lead.niche}</td><td>{lead.sales_channel}</td><td>{lead.instagram}</td><td><button className="admin-delete" onClick={() => remove(lead.id)} aria-label={`Excluir lead ${lead.name}`}>Excluir</button></td></tr>)}
         </tbody></table></div>
       ) : <div className="admin-empty"><span>00</span><p>Nenhum lead encontrado.</p></div>}
     </div>

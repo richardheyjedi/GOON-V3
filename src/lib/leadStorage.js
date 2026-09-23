@@ -39,7 +39,7 @@ async function request(path, { method = 'GET', body, token } = {}) {
 }
 
 export async function getLeads(token) {
-  return (await request('leads?select=id,created_at,name,phone,revenue,instagram&order=created_at.desc', { token })) || [];
+  return (await request('leads?select=id,created_at,name,phone,company,niche,sales_channel,instagram&order=created_at.desc', { token })) || [];
 }
 
 export async function saveLead(data) {

@@ -22,7 +22,7 @@ export const translations = {
       title: "Estratégia e operação para marcas em movimento [global].",
       lead: "A GOON é um ecossistema de aceleração para moda, design, beleza e cuidados pessoais. Conectamos cultura, dados e design à execução multicanal.",
       waBtn: "Falar no WhatsApp",
-      talkBtn: "Conheça a GOON",
+      talkBtn: "LET'S GOON!",
       methodBtn: "Como operamos"
     },
     marquee: ["Branding", "Produto", "Operação", "Growth", "Social Commerce", "Gestão"],
@@ -93,6 +93,13 @@ export const translations = {
       s2: "países alcançados",
       s3: "em negócios construídos",
       s4: "canais conectados"
+    },
+    network: {
+      eyebrow: "GLOBAL NETWORK / ATIVA",
+      title: "Presença onde a cadeia acontece.",
+      description: "Hubs próprios conectam estratégia, supply chain, distribuição e expansão entre as Américas, Europa e Oriente Médio.",
+      locationsLabel: "Pontos de atuação da GOON",
+      mapAria: "Mapa-múndi com os pontos de atuação da GOON em São Paulo, Caxias do Sul, Ciudad del Este, Doral, Londres e Dubai."
     },
     cases: {
       title: "Cases",
@@ -166,13 +173,26 @@ export const translations = {
       credits: "Design por GOON."
     },
     leadForm: {
-      title: "Iniciar Diagnóstico",
+      eyebrow: "NOVO PROJETO / DIAGNÓSTICO",
+      title: "Preencha seus dados e nosso time entrará em contato com você.",
+      description: "Conte um pouco sobre a sua marca. Em seguida, você poderá continuar a conversa diretamente pelo WhatsApp.",
       name: "Nome Completo",
       phone: "Telefone / WhatsApp",
-      revenue: "Faturamento Mensal",
+      company: "Nome da empresa ou marca",
+      niche: "Nicho de atuação",
+      salesChannel: "Principal canal de vendas",
       instagram: "Instagram da Empresa (@)",
-      submit: "Enviar Mensagem",
-      waTemplate: "Olá GOON! Quero iniciar um diagnóstico:\n- *Nome:* {name}\n- *Telefone:* {phone}\n- *Faturamento:* {revenue}\n- *Instagram:* {instagram}"
+      namePlaceholder: "Ex.: Richard Hey",
+      phonePlaceholder: "Ex.: +55 (54) 99999-9999",
+      companyPlaceholder: "Ex.: Nome da sua marca",
+      nichePlaceholder: "Ex.: Moda, beleza ou design",
+      salesChannelPlaceholder: "Ex.: E-commerce, lojas ou marketplaces",
+      instagramPlaceholder: "Ex.: @suaempresa",
+      submit: "Enviar dados e falar com a GOON",
+      submitting: "Enviando…",
+      privacy: "Seus dados serão usados apenas para este contato.",
+      close: "Fechar formulário",
+      waTemplate: "Olá GOON! Quero conversar sobre a minha marca:\n- *Nome:* {name}\n- *Telefone:* {phone}\n- *Empresa ou marca:* {company}\n- *Nicho:* {niche}\n- *Principal canal de vendas:* {salesChannel}\n- *Instagram:* {instagram}"
     }
   },
   en: {
@@ -194,7 +214,7 @@ export const translations = {
       title: "Strategy and operations for brands in [global] motion.",
       lead: "GOON is an acceleration ecosystem for fashion, design, beauty, and personal care. We connect culture, data, and design to multi-channel execution.",
       waBtn: "Talk on WhatsApp",
-      talkBtn: "Discover GOON",
+      talkBtn: "LET'S GOON!",
       methodBtn: "How we operate"
     },
     marquee: ["Branding", "Product", "Operations", "Growth", "Social Commerce", "Management"],
@@ -265,6 +285,13 @@ export const translations = {
       s2: "countries reached",
       s3: "in businesses built",
       s4: "connected channels"
+    },
+    network: {
+      eyebrow: "GLOBAL NETWORK / ACTIVE",
+      title: "Present where the value chain happens.",
+      description: "Our hubs connect strategy, supply chain, distribution, and expansion across the Americas, Europe, and the Middle East.",
+      locationsLabel: "GOON locations",
+      mapAria: "World map showing GOON locations in São Paulo, Caxias do Sul, Ciudad del Este, Doral, London, and Dubai."
     },
     cases: {
       title: "Cases",
@@ -338,13 +365,26 @@ export const translations = {
       credits: "Design by GOON."
     },
     leadForm: {
-      title: "Start Diagnosis",
+      eyebrow: "NEW PROJECT / DIAGNOSIS",
+      title: "Fill in your details and our team will contact you.",
+      description: "Tell us a little about your brand. You can then continue the conversation directly on WhatsApp.",
       name: "Full Name",
       phone: "Phone / WhatsApp",
-      revenue: "Monthly Revenue",
+      company: "Company or brand name",
+      niche: "Business niche",
+      salesChannel: "Main sales channel",
       instagram: "Company Instagram (@)",
-      submit: "Send Message",
-      waTemplate: "Hello GOON! I want to start a diagnosis:\n- *Name:* {name}\n- *Phone:* {phone}\n- *Revenue:* {revenue}\n- *Instagram:* {instagram}"
+      namePlaceholder: "E.g.: Richard Hey",
+      phonePlaceholder: "E.g.: +1 555 123 4567",
+      companyPlaceholder: "E.g.: Your brand name",
+      nichePlaceholder: "E.g.: Fashion, beauty or design",
+      salesChannelPlaceholder: "E.g.: E-commerce, stores or marketplaces",
+      instagramPlaceholder: "E.g.: @yourcompany",
+      submit: "Send details and talk to GOON",
+      submitting: "Sending…",
+      privacy: "Your information will only be used for this contact.",
+      close: "Close form",
+      waTemplate: "Hello GOON! I would like to talk about my brand:\n- *Name:* {name}\n- *Phone:* {phone}\n- *Company or brand:* {company}\n- *Niche:* {niche}\n- *Main sales channel:* {salesChannel}\n- *Instagram:* {instagram}"
     }
   },
   es: {
@@ -366,7 +406,7 @@ export const translations = {
       title: "Estrategia y operación para marcas en movimiento [global].",
       lead: "GOON es un ecosistema de aceleración para moda, diseño, belleza y cuidado personal. Conectamos cultura, datos y diseño con la ejecución multicanal.",
       waBtn: "Hablar por WhatsApp",
-      talkBtn: "Conoce GOON",
+      talkBtn: "LET'S GOON!",
       methodBtn: "Cómo operamos"
     },
     marquee: ["Branding", "Producto", "Operaciones", "Growth", "Social Commerce", "Gestión"],
@@ -437,6 +477,13 @@ export const translations = {
       s2: "países alcanzados",
       s3: "en negocios construidos",
       s4: "canales conectados"
+    },
+    network: {
+      eyebrow: "GLOBAL NETWORK / ACTIVA",
+      title: "Presencia donde sucede la cadena.",
+      description: "Nuestros hubs conectan estrategia, supply chain, distribución y expansión entre América, Europa y Oriente Medio.",
+      locationsLabel: "Puntos de actuación de GOON",
+      mapAria: "Mapa mundial con los puntos de actuación de GOON en São Paulo, Caxias do Sul, Ciudad del Este, Doral, Londres y Dubái."
     },
     cases: {
       title: "Casos",
@@ -510,13 +557,26 @@ export const translations = {
       credits: "Diseño por GOON."
     },
     leadForm: {
-      title: "Iniciar Diagnóstico",
+      eyebrow: "NUEVO PROYECTO / DIAGNÓSTICO",
+      title: "Completa tus datos y nuestro equipo se pondrá en contacto contigo.",
+      description: "Cuéntanos un poco sobre tu marca. Después podrás continuar la conversación directamente por WhatsApp.",
       name: "Nombre Completo",
       phone: "Teléfono / WhatsApp",
-      revenue: "Facturación Mensual",
+      company: "Nombre de la empresa o marca",
+      niche: "Nicho de actuación",
+      salesChannel: "Principal canal de ventas",
       instagram: "Instagram de la Empresa (@)",
-      submit: "Enviar Mensaje",
-      waTemplate: "¡Hola GOON! Quiero iniciar un diagnóstico:\n- *Nombre:* {name}\n- *Teléfono:* {phone}\n- *Facturación:* {revenue}\n- *Instagram:* {instagram}"
+      namePlaceholder: "Ej.: Richard Hey",
+      phonePlaceholder: "Ej.: +34 600 000 000",
+      companyPlaceholder: "Ej.: Nombre de tu marca",
+      nichePlaceholder: "Ej.: Moda, belleza o diseño",
+      salesChannelPlaceholder: "Ej.: E-commerce, tiendas o marketplaces",
+      instagramPlaceholder: "Ej.: @tuempresa",
+      submit: "Enviar datos y hablar con GOON",
+      submitting: "Enviando…",
+      privacy: "Tus datos se utilizarán únicamente para este contacto.",
+      close: "Cerrar formulario",
+      waTemplate: "¡Hola GOON! Quiero hablar sobre mi marca:\n- *Nombre:* {name}\n- *Teléfono:* {phone}\n- *Empresa o marca:* {company}\n- *Nicho:* {niche}\n- *Principal canal de ventas:* {salesChannel}\n- *Instagram:* {instagram}"
     }
   }
 };

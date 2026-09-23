@@ -23,6 +23,15 @@ const ECOSYSTEM_ITEMS = [
   { key: 'c4', label: 'KNOWLEDGE NETWORK' },
 ];
 
+const NETWORK_LOCATIONS = [
+  { key: 'doral', code: 'US', label: 'Doral / Miami', x: 27.7, y: 35.7, labelX: '-44px', labelY: '-35px' },
+  { key: 'london', code: 'UK', label: 'London', x: 50, y: 21.4, labelX: '-35px', labelY: '-37px' },
+  { key: 'dubai', code: 'AE', label: 'Dubai', x: 65.4, y: 36, labelX: '13px', labelY: '-31px' },
+  { key: 'saopaulo', code: 'BR', label: 'São Paulo', x: 37.1, y: 63.1, labelX: '15px', labelY: '-27px' },
+  { key: 'caxias', code: 'BR', label: 'Caxias do Sul', x: 35.8, y: 66.2, labelX: '14px', labelY: '15px' },
+  { key: 'cde', code: 'PY', label: 'Ciudad del Este', x: 34.8, y: 64.2, labelX: '-118px', labelY: '-7px' },
+];
+
 function AdminRoute() {
   const [active, setActive] = useState(() => window.location.hash === '#admin');
 
@@ -53,6 +62,76 @@ const openLeadModal = (event) => {
 
 function ArrowIcon() {
   return <span className="arrow-icon" aria-hidden="true">↗</span>;
+}
+
+function WorldNetworkMap({ label }) {
+  return (
+    <div className="network-map" role="img" aria-label={label}>
+      <svg className="world-map-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <defs>
+          <pattern id="world-grid" width="25" height="25" patternUnits="userSpaceOnUse">
+            <path d="M 25 0 L 0 0 0 25" fill="none" stroke="currentColor" strokeWidth="0.7" />
+          </pattern>
+          <linearGradient id="world-land" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stopColor="#c8ff2f" stopOpacity="0.2" />
+            <stop offset="1" stopColor="#c8ff2f" stopOpacity="0.055" />
+          </linearGradient>
+          <filter id="route-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3.5" result="blur" />
+            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+        </defs>
+
+        <rect className="world-map-grid" width="1000" height="500" fill="url(#world-grid)" />
+        <g className="world-map-graticule">
+          <path d="M0 250H1000M500 0V500" />
+          <ellipse cx="500" cy="250" rx="480" ry="154" />
+          <ellipse cx="500" cy="250" rx="480" ry="82" />
+          <path d="M250 16C345 117 345 383 250 484M750 16C655 117 655 383 750 484" />
+        </g>
+
+        <g className="world-map-land" fill="url(#world-land)">
+          <path d="M73 116l28-31 45-13 30-20 39 13 29 22 47 3 36 22 21 28-12 27-26 12-17 27-29 14-23 28-24-12-18-29-29-8-29-25-30-5-16-27z" />
+          <path d="M239 208l20 8 17 18 20 10-5 15-19-5-16-17-17-12z" />
+          <path d="M297 250l30-17 35 5 25 20 16 31-2 38-18 40-16 38-27 34-19 6-16-27-10-39-11-37 4-43z" />
+          <path d="M247 43l39-13 25 18-9 32-28 14-35-18z" />
+          <path d="M403 126l25-30 30-15 29 5 25-14 46 1 40-17 54 6 39-12 39 17 48-3 43 15 38-8 39 15 29 26-13 28-32 17-18 25-40 12-40-3-29 17-36 17-23 29-40 19-42-4-36 11-37-21-24-23-36-6-30-21-31 4-18-21 12-29z" />
+          <path d="M460 217l31-29 43-5 35 22 18 31-1 42-19 42-23 47-34 22-30-25-18-42-17-43z" />
+          <path d="M787 330l31-23 43 8 30 26 2 38-29 29-43 6-34-28-16-31z" />
+          <path d="M897 195l12 10-8 25-11-6zM731 188l8 16-10 13-8-15zM469 111l8-10 8 14-9 16zM568 388l10 12-5 25-9-7z" />
+        </g>
+
+        <g className="world-map-routes" filter="url(#route-glow)">
+          <path d="M371 316Q326 220 277 179" />
+          <path d="M371 316Q421 142 500 107" />
+          <path d="M500 107Q590 108 654 180" />
+          <path d="M371 316Q520 205 654 180" />
+          <path d="M371 316Q359 322 348 321" />
+          <path d="M371 316Q365 328 358 331" />
+        </g>
+      </svg>
+
+      <div className="network-points" aria-hidden="true">
+        {NETWORK_LOCATIONS.map((location, index) => (
+          <span
+            className="network-point"
+            key={location.key}
+            style={{
+              left: `${location.x}%`,
+              top: `${location.y}%`,
+              '--point-delay': `${index * 180}ms`,
+              '--label-x': location.labelX,
+              '--label-y': location.labelY,
+            }}
+          >
+            <i /><b>{location.code}</b><em>{location.label}</em>
+          </span>
+        ))}
+      </div>
+
+      <div className="network-map-status" aria-hidden="true"><i /> LIVE NETWORK</div>
+    </div>
+  );
 }
 
 export default function App() {
@@ -407,17 +486,18 @@ export default function App() {
             <div className="stat-item"><strong>∞</strong><span>{t('stats.s4')}</span></div>
           </div>
 
-          <div className="network-panel" data-reveal>
+          <div className="network-panel" id="global-network" data-reveal>
             <div className="network-copy">
-              <span>GLOBAL NETWORK / ACTIVE</span>
-              <h3>Presença onde a cadeia acontece.</h3>
-              <p>Brasil, LATAM, México, Estados Unidos, Europa e Oriente Médio conectados por uma rede de supply chain, distribuição e expansão.</p>
+              <span>{t('network.eyebrow')}</span>
+              <h3>{t('network.title')}</h3>
+              <p>{t('network.description')}</p>
+              <div className="network-location-list" aria-label={t('network.locationsLabel')}>
+                {NETWORK_LOCATIONS.map((location, index) => (
+                  <span key={location.key}><b>{String(index + 1).padStart(2, '0')}</b>{location.label}</span>
+                ))}
+              </div>
             </div>
-            <div className="network-map" aria-hidden="true">
-              <span className="map-line line-one" /><span className="map-line line-two" /><span className="map-line line-three" />
-              <i className="map-dot dot-br" /><i className="map-dot dot-us" /><i className="map-dot dot-eu" /><i className="map-dot dot-ae" />
-              <b className="map-label label-br">BR</b><b className="map-label label-us">US</b><b className="map-label label-eu">EU</b><b className="map-label label-ae">AE</b>
-            </div>
+            <WorldNetworkMap label={t('network.mapAria')} />
           </div>
         </section>
 
